@@ -6,11 +6,17 @@
     tools:context=".MapaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/mapImageView"
+    <FrameLayout
+        android:id="@+id/mapContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/mapa_ies_vidreres_v2"
-        android:scaleType="fitCenter" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/mapImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/mapa_ies_vidreres_v2" />
+    </FrameLayout>
+
 
 </FrameLayout>
