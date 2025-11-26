@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/iniciFragment">
+
+    <fragment
+        android:id="@+id/iniciFragment"
+        android:name="com.adrig.lasertag.IniciFragment"
+        android:label="fragment_inici"
+        tools:layout="@layout/fragment_inici" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.adrig.lasertag.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/mapaFragment"
+        android:name="com.adrig.lasertag.MapaFragment"
+        android:label="fragment_mapa"
+        tools:layout="@layout/fragment_mapa" />
+    <fragment
+        android:id="@+id/codiFragment"
+        android:name="com.adrig.lasertag.CodiFragment"
+        android:label="fragment_codi"
+        tools:layout="@layout/fragment_codi" />
+    <fragment
+        android:id="@+id/registreFragment"
+        android:name="com.adrig.lasertag.RegistreFragment"
+        android:label="fragment_registre"
+        tools:layout="@layout/fragment_registre" />
+</navigation>
