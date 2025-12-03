@@ -20,5 +20,5 @@
     <item
         android:id="@+id/codiFragment"
         android:icon="@drawable/codi"
-        android:title="CodiFragment" />
+        android:title="Codi" />
 </menu>
