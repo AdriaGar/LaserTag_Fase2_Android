@@ -29,10 +29,10 @@ class MapaFragment : Fragment() {
     private val PERMISSION_REQUEST = 100
 
     // Bounds del mapa
-    private val latMin = 41.786000
-    private val latMax = 41.786400
-    private val lonMin = 2.737100
-    private val lonMax = 2.737700
+    private val latMin = 41.788412
+    private val latMax = 41.790269
+    private val lonMin = 2.771154
+    private val lonMax = 2.762952
 
     private var lastXRel: Float = 0.5f
     private var lastYRel: Float = 0.5f
@@ -89,9 +89,12 @@ class MapaFragment : Fragment() {
 
     private fun addTestPlayers() {
         otherPlayers.clear()
-        otherPlayers.add(OtherPlayer("p1", 41.786150, 2.737300))
-        otherPlayers.add(OtherPlayer("p2", 41.786350, 2.737500))
-        otherPlayers.add(OtherPlayer("p3", 41.786250, 2.737200))
+        otherPlayers.add(OtherPlayer("p1", 41.788500, 2.763000))
+        otherPlayers.add(OtherPlayer("p2", 41.788900, 2.763500))
+        otherPlayers.add(OtherPlayer("p3", 41.789200, 2.764000))
+        otherPlayers.add(OtherPlayer("p4", 41.789500, 2.765000))
+        otherPlayers.add(OtherPlayer("p5", 41.788800, 2.766500))
+        otherPlayers.add(OtherPlayer("p6", 41.789100, 2.767500))
     }
 
     //Marcadores otros jugadores
