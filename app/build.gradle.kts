@@ -54,4 +54,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("com.google.android.material:material:1.13.0")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // OkHttp (opcional pero recomendado)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 }

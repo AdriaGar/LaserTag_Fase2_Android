@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/mapaFragment"
-        android:name="com.adrig.lasertag.MapaFragment"
+        android:name="com.adrig.lasertag.mapa.MapaFragment"
         android:label="fragment_mapa"
         tools:layout="@layout/fragment_mapa" />
     <fragment
