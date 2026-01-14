@@ -26,72 +26,93 @@ class MapaViewModel(private val repository: MapaRepository) : ViewModel() {
     private var lastYRel: Float = 0f
 
     // Límites del mapa (lat/lon)
-    private val latMin = 41.788412
-    private val latMax = 41.790269
-    private val lonMin = 2.762952
-    private val lonMax = 2.771154
+    private val latMin = 41.788200
+    private val latMax = 41.788600
+
+    private val lonMin = 2.762700
+    private val lonMax = 2.763200
 
     // FusedLocationProviderClient
     private var fusedLocation: FusedLocationProviderClient? = null
     private var locationCallback: LocationCallback? = null
 
-    //----------------------------------------------------
-    // Inicia actualizaciones de ubicación
-    //----------------------------------------------------
     @SuppressLint("MissingPermission")
     fun startLocationUpdates(context: Context) {
+        Log.d("MapaViewModel", "startLocationUpdates() llamado")
+
         fusedLocation = LocationServices.getFusedLocationProviderClient(context)
         val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000L).build()
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(result: LocationResult) {
-                result.lastLocation?.let { location ->
-                    updateUserPosition(location.latitude, location.longitude)
+                val location: Location? = result.lastLocation
+
+                if (location == null) {
+                    Log.w("MapaViewModel", "onLocationResult: location es null")
+                    return
                 }
+
+                Log.d(
+                    "MapaViewModel",
+                    "onLocationResult: lat=${location.latitude}, lon=${location.longitude}"
+                )
+
+                updateUserPosition(location.latitude, location.longitude)
             }
         }
 
         fusedLocation?.requestLocationUpdates(request, locationCallback!!, context.mainLooper)
     }
 
-    //----------------------------------------------------
-    // Detiene actualizaciones de ubicación
-    //----------------------------------------------------
     fun stopLocationUpdates() {
+        Log.d("MapaViewModel", "stopLocationUpdates() llamado")
         locationCallback?.let {
             fusedLocation?.removeLocationUpdates(it)
         }
     }
 
-    //----------------------------------------------------
-    // Actualizar la posición local
-    //----------------------------------------------------
     fun updateUserPosition(lat: Double, lon: Double) {
-        lastXRel = ((lon - lonMin) / (lonMax - lonMin)).toFloat().coerceIn(0f, 1f)
-        lastYRel = (1 - ((lat - latMin) / (latMax - latMin)).toFloat()).coerceIn(0f, 1f)
+        Log.d("MapaViewModel", "updateUserPosition() con lat=$lat lon=$lon")
+
+        val xRel = ((lon - lonMin) / (lonMax - lonMin)).toFloat()
+        val yRel = (1 - ((lat - latMin) / (latMax - latMin)).toFloat())
+
+        lastXRel = xRel.coerceIn(0f, 1f)
+        lastYRel = yRel.coerceIn(0f, 1f)
+
+        Log.d(
+            "MapaViewModel",
+            "Convertido a relativas: xRel=$xRel yRel=$yRel -> clamp: lastXRel=$lastXRel lastYRel=$lastYRel"
+        )
+
         userPosition.postValue(Pair(lastXRel, lastYRel))
     }
 
-    //----------------------------------------------------
-    // Devuelve la posición actual relativa
-    //----------------------------------------------------
-    fun getCurrentUserPosition(): Pair<Float, Float> = Pair(lastXRel, lastYRel)
+    fun getCurrentUserPosition(): Pair<Float, Float> {
+        Log.d("MapaViewModel", "getCurrentUserPosition() -> xRel=$lastXRel yRel=$lastYRel")
+        return Pair(lastXRel, lastYRel)
+    }
 
-    //----------------------------------------------------
-    // Petición unificada: subir local + bajar jugadores
-    //----------------------------------------------------
     fun refreshPlayers(localPlayer: Player) {
+        Log.d(
+            "MapaViewModel",
+            "refreshPlayers() -> enviando al backend: id=${localPlayer.jugador_id}, x=${localPlayer.x}, y=${localPlayer.y}"
+        )
+
         viewModelScope.launch {
             try {
                 val otherPlayers = repository.updateAndFetchPlayers(localPlayer)
+                Log.d("MapaViewModel", "Jugadores recibidos del backend: $otherPlayers")
                 players.postValue(otherPlayers)
             } catch (e: Exception) {
-                Log.e("MapaViewModel", "Error al actualizar jugadores: ${e.message}")
+                Log.e("MapaViewModel", "Error al actualizar jugadores: ${e.message}", e)
             }
         }
     }
 
     fun getDeviceId(context: Context): String {
-        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val id = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        Log.d("MapaViewModel", "getDeviceId() -> $id")
+        return id
     }
 }
