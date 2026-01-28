@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp"
-    tools:context=".F_Registre">
+    tools:context=".A1_Sesion.F_Registre">
 
 
     <com.google.android.material.card.MaterialCardView

@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/iniciFragment"
-        android:name="com.adrig.lasertag.F_Inici"
+        android:name="com.adrig.lasertag.A2_BuscarPartida.F_Inici"
         android:label="fragment_inici"
         tools:layout="@layout/fragment_inici" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.adrig.lasertag.F_Login"
+        android:name="com.adrig.lasertag.A1_Sesion.F_Login"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/mapaFragment"
-        android:name="com.adrig.lasertag.F_Mapa"
+        android:name="com.adrig.lasertag.A3_Partida.F_Mapa"
         android:label="fragment_mapa"
         tools:layout="@layout/fragment_mapa" />
     <fragment
         android:id="@+id/codiFragment"
-        android:name="com.adrig.lasertag.F_Codi"
+        android:name="com.adrig.lasertag.A2_BuscarPartida.F_Codi"
         android:label="fragment_codi"
         tools:layout="@layout/fragment_codi" />
     <fragment
         android:id="@+id/registreFragment"
-        android:name="com.adrig.lasertag.F_Registre"
+        android:name="com.adrig.lasertag.A1_Sesion.F_Registre"
         android:label="fragment_registre"
         tools:layout="@layout/fragment_registre" />
 </navigation>
