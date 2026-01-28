@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_a2_buscar_partida"
+    app:startDestination="@id/f_Inici">
+
+    <fragment
+        android:id="@+id/f_Inici"
+        android:name="com.adrig.lasertag.A2_BuscarPartida.F_Inici"
+        android:label="F_Inici"
+        tools:layout="@layout/fragment_inici" />
+    <fragment
+        android:id="@+id/f_Codi"
+        android:name="com.adrig.lasertag.A2_BuscarPartida.F_Codi"
+        android:label="F_Codi"
+        tools:layout="@layout/fragment_codi" />
+</navigation>

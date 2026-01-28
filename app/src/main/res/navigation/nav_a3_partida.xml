@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_a3_partida"
+    app:startDestination="@id/f_Mapa">
+
+    <fragment
+        android:id="@+id/f_Mapa"
+        android:name="com.adrig.lasertag.A3_Partida.F_Mapa"
+        android:label="fragment_mapa"
+        tools:layout="@layout/fragment_mapa" >
+        <action
+            android:id="@+id/action_f_Mapa_to_f_Marcador"
+            app:destination="@id/f_Marcador" />
+    </fragment>
+    <fragment
+        android:id="@+id/f_Marcador"
+        android:name="com.adrig.lasertag.A3_Partida.F_Marcador"
+        android:label="fragment_marcador"
+        tools:layout="@layout/fragment_marcador" >
+        <action
+            android:id="@+id/action_f_Marcador_to_f_Mapa"
+            app:destination="@id/f_Mapa" />
+    </fragment>
+
+</navigation>

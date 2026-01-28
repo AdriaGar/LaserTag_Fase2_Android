@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/a1_sesion"
+    app:startDestination="@id/f_Login">
+
+    <fragment
+        android:id="@+id/f_Login"
+        android:name="com.adrig.lasertag.A1_Sesion.F_Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_f_Login_to_f_Registre"
+            app:destination="@id/f_Registre" />
+        <action
+            android:id="@+id/action_f_Login_to_f_Invitado"
+            app:destination="@id/f_Invitado" />
+    </fragment>
+    <fragment
+        android:id="@+id/f_Registre"
+        android:name="com.adrig.lasertag.A1_Sesion.F_Registre"
+        android:label="fragment_registre"
+        tools:layout="@layout/fragment_registre" >
+        <action
+            android:id="@+id/action_f_Registre_to_f_Login"
+            app:destination="@id/f_Login" />
+        <action
+            android:id="@+id/action_f_Registre_to_f_Invitado"
+            app:destination="@id/f_Invitado" />
+    </fragment>
+    <fragment
+        android:id="@+id/f_Invitado"
+        android:name="com.adrig.lasertag.A1_Sesion.F_Invitado"
+        android:label="fragment_invitado"
+        tools:layout="@layout/fragment_invitado" >
+        <action
+            android:id="@+id/action_f_Invitado_to_f_Registre"
+            app:destination="@id/f_Registre" />
+        <action
+            android:id="@+id/action_f_Invitado_to_f_Login"
+            app:destination="@id/f_Login" />
+    </fragment>
+</navigation>

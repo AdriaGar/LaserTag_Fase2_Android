@@ -4,70 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="0dp"
-    tools:context=".CodiFragment">
+    android:background="@color/fons_fragment"
+    android:padding="24dp"
+    tools:context=".A2_BuscarPartida.F_Codi">
 
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/codiHeader"
-        android:layout_width="326dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="100dp"
-        app:cardBackgroundColor="#474F42"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unir-se amb Codi"
+        android:textColor="@android:color/white"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/codiInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="12dp"
-            android:shadowColor="#000000"
-            android:shadowDx="0"
-            android:shadowDy="4"
-            android:shadowRadius="4"
-            android:text="Introdueix el codi de la sala"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/codiInput"
-        android:layout_width="236dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
+        android:id="@+id/codiInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:hint="Introdueix el codi de la sala"
         app:boxBackgroundColor="#808163"
-        app:boxBackgroundMode="filled"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusTopStart="16dp"
-        app:boxStrokeColor="@color/black"
         app:boxStrokeWidth="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnEntrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/codiHeader">
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUsername"
+            android:id="@+id/etCodi"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="12dp"
+            android:layout_height="wrap_content"
             android:inputType="text"
-            android:textColor="@android:color/black"
-            android:gravity="center_vertical" />
+            android:textColor="@android:color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEntrar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:paddingVertical="16dp"
+        android:text="Entrar"
+        android:textSize="18sp"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codiInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

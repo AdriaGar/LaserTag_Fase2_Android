@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/f_Login"
+        android:title="Login"
+        android:icon="@drawable/login"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/f_Registre"
+        android:title="Registre"
+        android:icon="@drawable/registre"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/f_Invitado"
+        android:title="Invitado"
+        android:icon="@drawable/ic_launcher_background"
+        app:showAsAction="ifRoom"/>
+</menu>
