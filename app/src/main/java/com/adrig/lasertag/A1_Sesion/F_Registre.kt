@@ -39,7 +39,7 @@ class F_Registre : Fragment() {
             if (validateFields()) {
                 viewModel.registerUser(
                     binding.etNomUsuari.text.toString(),
-                    binding.etUsuari.text.toString(),
+                    binding.etNom.text.toString(),
                     binding.etCognoms.text.toString(),
                     binding.etEmail.text.toString(),
                     binding.etContrasenya.text.toString()
@@ -68,7 +68,7 @@ class F_Registre : Fragment() {
 
     private fun setupValidation() {
         binding.etNomUsuari.addTextChangedListener { binding.nomUsuariInputLayout.error = null }
-        binding.etUsuari.addTextChangedListener { binding.usuariInputLayout.error = null }
+        binding.etNom.addTextChangedListener { binding.usuariInputLayout.error = null }
         binding.etCognoms.addTextChangedListener { binding.cognomsInputLayout.error = null }
         binding.etEmail.addTextChangedListener { binding.emailInputLayout.error = null }
         binding.etContrasenya.addTextChangedListener { binding.contrasenyaInputLayout.error = null }
@@ -82,8 +82,8 @@ class F_Registre : Fragment() {
             binding.nomUsuariInputLayout.error = "El nom d'usuari no pot estar buit"
             isValid = false
         }
-        if (binding.etUsuari.text.isNullOrBlank()) {
-            binding.usuariInputLayout.error = "L'usuari no pot estar buit"
+        if (binding.etNom.text.isNullOrBlank()) {
+            binding.usuariInputLayout.error = "El nom no pot ser buit"
             isValid = false
         }
         if (binding.etCognoms.text.isNullOrBlank()) {

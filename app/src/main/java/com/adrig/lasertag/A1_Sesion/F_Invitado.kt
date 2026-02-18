@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.adrig.lasertag.A2_BuscarPartida.A2_BuscarPartida
-import com.adrig.lasertag.MainActivity
 import com.adrig.lasertag.R
 import com.adrig.lasertag.databinding.FragmentInvitadoBinding
+import com.adrig.lasertag.A2_BuscarPartida.A2_BuscarPartida
 
 class F_Invitado : Fragment() {
     private var _binding: FragmentInvitadoBinding? = null

@@ -20,7 +20,7 @@ class F_Login : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: VM_Sesion by viewModels()
+    private val viewModel: VM_Login by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
