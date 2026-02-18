@@ -38,7 +38,6 @@ class F_Registre : Fragment() {
         binding.btnRegistre.setOnClickListener {
             if (validateFields()) {
                 viewModel.registerUser(
-                    binding.etNomUsuari.text.toString(),
                     binding.etNom.text.toString(),
                     binding.etCognoms.text.toString(),
                     binding.etEmail.text.toString(),

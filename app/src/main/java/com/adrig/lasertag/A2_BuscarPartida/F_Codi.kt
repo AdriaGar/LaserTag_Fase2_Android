@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.adrig.lasertag.A3_Partida.A3_Partida
-import com.adrig.lasertag.MainActivity
-import com.adrig.lasertag.R
 import com.adrig.lasertag.databinding.FragmentCodiBinding
 
 class F_Codi: Fragment() {

@@ -13,17 +13,21 @@ class VM_Registro : ViewModel() {
     private val _registrationState = MutableLiveData<RegistrationState>(RegistrationState.Idle)
     val registrationState: LiveData<RegistrationState> = _registrationState
 
-    fun registerUser(nomUsuari: String, nom: String, cognoms: String, email: String, contrasenya: String) {
+    fun registerUser(nom: String, cognoms: String, email: String, contrasenya: String) {
         viewModelScope.launch {
             _registrationState.value = RegistrationState.Loading
+
+
+            val request = RegisterRequest(nom = nom, cognoms = cognoms, email = email, password = contrasenya)
+
             try {
-                val response = RetrofitClient.instance.register(
-                    RegisterRequest(nomUsuari, nom, cognoms, email, contrasenya)
-                )
-                if (response.isSuccessful && response.body() != null) {
-                    _registrationState.value = RegistrationState.Success(response.body()?.message ?: "Registre completat")
+                val response = RetrofitClient.authService.register(request)
+
+                if (response.isSuccessful) {
+                    _registrationState.value = RegistrationState.Success(response.body()?.message ?: "Usuari creat correctament!")
                 } else {
-                    _registrationState.value = RegistrationState.Error("Error: ${response.code()} - ${response.message()}")
+                    val errorMsg = response.errorBody()?.string()
+                    _registrationState.value = RegistrationState.Error("Error en el registre: $errorMsg")
                 }
             } catch (e: Exception) {
                 _registrationState.value = RegistrationState.Error("Error de connexió: ${e.message}")

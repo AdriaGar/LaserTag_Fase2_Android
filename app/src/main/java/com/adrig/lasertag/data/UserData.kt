@@ -1,8 +1,8 @@
 package com.adrig.lasertag.data
 
-data class RegisterRequest(
+data class UserData(
+    val id: Int,
     val nom: String,
-    val cognoms: String,
     val email: String,
-    val password: String
+    val rol: String
 )

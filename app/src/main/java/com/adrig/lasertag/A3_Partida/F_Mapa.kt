@@ -24,8 +24,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.adrig.lasertag.R
-import com.adrig.lasertag.A3_Partida.VM_Mapa
 import com.adrig.lasertag.data.PlayerPosition
+import com.adrig.lasertag.databinding.FragmentMapaBinding
 import kotlin.math.atan2
 import kotlin.math.max
 import kotlin.math.sqrt
@@ -61,6 +61,9 @@ class F_Mapa : Fragment() {
     private val RECENTER_DELAY_MS = 5000L
 
     private var isAutoCentering = true
+
+    lateinit var binding: FragmentMapaBinding
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(

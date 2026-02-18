@@ -13,15 +13,17 @@ class VM_Login : ViewModel() {
     private val _loginState = MutableLiveData<LoginState>(LoginState.Idle)
     val loginState: LiveData<LoginState> = _loginState
 
-    fun loginUser(username: String, password: String) {
+    fun loginUser(email: String, password: String) {
         viewModelScope.launch {
             _loginState.value = LoginState.Loading
             try {
-                val response = RetrofitClient.instance.login(LoginRequest(username, password))
-                if (response.isSuccessful && response.body() != null) {
-                    _loginState.value = LoginState.Success("Inici de sessió correcte: ${response.body()?.usuari}")
+                val response = RetrofitClient.authService.login(LoginRequest(email, password))
+                if (response.isSuccessful) {
+                    val loginResponse = response.body()
+                    _loginState.value = LoginState.Success(loginResponse?.message ?: "Inici de sessió correcte")
                 } else {
-                    _loginState.value = LoginState.Error("Error: ${response.code()} - ${response.message()}")
+                    val errorBody = response.errorBody()?.string()
+                    _loginState.value = LoginState.Error("Email o contrasenya incorrectes: $errorBody")
                 }
             } catch (e: Exception) {
                 _loginState.value = LoginState.Error("Error de connexió: ${e.message}")

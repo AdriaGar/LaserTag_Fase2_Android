@@ -11,7 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.adrig.lasertag.MainActivity
+import com.adrig.lasertag.A2_BuscarPartida.A2_BuscarPartida
 import com.adrig.lasertag.R
 import com.adrig.lasertag.databinding.FragmentLoginBinding
 
@@ -58,7 +58,7 @@ class F_Login : Fragment() {
             when (state) {
                 is LoginState.Success -> {
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
-                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    val intent = Intent(requireActivity(), A2_BuscarPartida::class.java)
                     startActivity(intent)
                     requireActivity().finish()
                 }
