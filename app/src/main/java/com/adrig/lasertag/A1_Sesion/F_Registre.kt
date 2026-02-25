@@ -93,8 +93,8 @@ class F_Registre : Fragment() {
             binding.emailInputLayout.error = "Introdueix un email vàlid"
             isValid = false
         }
-        if (binding.etContrasenya.text.isNullOrBlank() || binding.etContrasenya.text!!.length < 6) {
-            binding.contrasenyaInputLayout.error = "La contrasenya ha de tenir almenys 6 caràcters"
+        if (binding.etContrasenya.text.isNullOrBlank() || binding.etContrasenya.text!!.length < 8) {
+            binding.contrasenyaInputLayout.error = "La contrasenya ha de tenir almenys 8 caràcters"
             isValid = false
         }
 
