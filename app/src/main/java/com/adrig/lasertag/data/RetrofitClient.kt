@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val AUTH_BASE_URL = "http://192.168.0.194:5050/"
+    private const val AUTH_BASE_URL = "http://192.168.0.189:5050/"
     private const val LOCATION_BASE_URL = "http://192.168.0.100:3000/"
 
     private val authRetrofit = Retrofit.Builder()
@@ -23,5 +23,9 @@ object RetrofitClient {
 
     val locationService: LocationService by lazy {
         locationRetrofit.create(LocationService::class.java)
+    }
+
+    val gameService: GameService by lazy {
+        locationRetrofit.create(GameService::class.java)
     }
 }

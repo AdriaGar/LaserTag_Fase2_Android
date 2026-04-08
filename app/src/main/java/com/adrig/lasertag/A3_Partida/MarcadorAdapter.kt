@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adrig.lasertag.R
-import com.adrig.lasertag.data.PlayerScore
+import com.adrig.lasertag.data.JugadorScore
 
-class MarcadorAdapter(private val scores: List<PlayerScore>) : RecyclerView.Adapter<MarcadorAdapter.ScoreViewHolder>() {
+class MarcadorAdapter(private val scores: List<JugadorScore>) : RecyclerView.Adapter<MarcadorAdapter.ScoreViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScoreViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_marcador_jugador, parent, false)
@@ -27,10 +27,10 @@ class MarcadorAdapter(private val scores: List<PlayerScore>) : RecyclerView.Adap
         private val kills: TextView = itemView.findViewById(R.id.textViewKills)
         private val deaths: TextView = itemView.findViewById(R.id.textViewDeaths)
 
-        fun bind(score: PlayerScore) {
-            playerName.text = score.playerName
+        fun bind(score: JugadorScore) {
+            playerName.text = score.nom
             kills.text = score.kills.toString()
-            deaths.text = score.deaths.toString()
+            deaths.text = score.morts.toString()
         }
     }
 }

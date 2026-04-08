@@ -3,7 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_a3_partida"
-    app:startDestination="@id/f_Mapa">
+    app:startDestination="@id/f_Espera">
+
+    <fragment
+        android:id="@+id/f_Espera"
+        android:name="com.adrig.lasertag.A3_Partida.F_Espera"
+        android:label="fragment_f_espera"
+        tools:layout="@layout/fragment_f_espera">
+        <action
+            android:id="@+id/action_f_Espera_to_f_Mapa"
+            app:destination="@id/f_Mapa"
+            app:popUpTo="@id/f_Espera"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/f_Mapa"
@@ -14,6 +26,7 @@
             android:id="@+id/action_f_Mapa_to_f_Marcador"
             app:destination="@id/f_Marcador" />
     </fragment>
+
     <fragment
         android:id="@+id/f_Marcador"
         android:name="com.adrig.lasertag.A3_Partida.F_Marcador"

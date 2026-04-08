@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.adrig.lasertag.R
 import com.adrig.lasertag.databinding.FragmentIniciBinding
 
 class F_Inici: Fragment() {

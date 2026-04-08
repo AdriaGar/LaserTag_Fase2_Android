@@ -1,18 +1,20 @@
 package com.adrig.lasertag.A3_Partida
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.adrig.lasertag.data.PlayerScore
 import com.adrig.lasertag.databinding.FragmentMarcadorBinding
 
 class F_Marcador : Fragment() {
 
     private var _binding: FragmentMarcadorBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: VM_Marcador by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,19 +27,29 @@ class F_Marcador : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Reemplazar esto con los datos reales del ViewModel
-        val sampleScores = listOf(
-            PlayerScore("Jugador 1", 15, 3),
-            PlayerScore("Jugador 2", 12, 5),
-            PlayerScore("Jugador 3", 10, 8),
-            PlayerScore("Jugador 4", 8, 10),
-            PlayerScore("Jugador 5", 5, 12),
-            PlayerScore("Jugador 6", 2, 15)
-        )
+        val prefs = requireContext().getSharedPreferences("lasertag", Context.MODE_PRIVATE)
 
-        val adapter = MarcadorAdapter(sampleScores)
+        val codiSala =
+            activity?.intent?.getStringExtra("CODI_SALA") ?: prefs.getString("codi_sala", "") ?: ""
+        val jugadorId = prefs.getString("jugador_id", "") ?: ""
+
         binding.recyclerViewMarcador.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewMarcador.adapter = adapter
+
+        viewModel.ranking.observe(viewLifecycleOwner) { llista ->
+            binding.recyclerViewMarcador.adapter = MarcadorAdapter(llista)
+        }
+
+
+        viewModel.estatPropi.observe(viewLifecycleOwner) { estat ->
+            binding.tvKills.text = estat.kills.toString()
+            binding.tvMorts.text = estat.morts.toString()
+            binding.tvPunts.text = estat.punts.toString()
+            binding.tvViu.text = if (estat.viu) "VIU" else "ELIMINAT"
+        }
+
+        if (codiSala.isNotEmpty() && jugadorId.isNotEmpty()) {
+            viewModel.startPolling(codiSala, jugadorId)
+        }
     }
 
     override fun onDestroyView() {

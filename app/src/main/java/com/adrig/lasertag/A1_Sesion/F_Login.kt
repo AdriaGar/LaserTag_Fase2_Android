@@ -39,8 +39,9 @@ class F_Login : Fragment() {
         binding.btnLogin.setOnClickListener {
             if (validateFields()) {
                 viewModel.loginUser(
-                    binding.etUsername.text.toString(),
-                    binding.etContrasenya.text.toString()
+                    binding.etEmail.text.toString(),
+                    binding.etContrasenya.text.toString(),
+                    requireContext()
                 )
             }
         }
@@ -71,17 +72,17 @@ class F_Login : Fragment() {
     }
 
     private fun setupValidation() {
-        binding.etUsername.addTextChangedListener { binding.usernameInputLayout.error = null }
+        binding.etEmail.addTextChangedListener { binding.emailInputLayout.error = null }
         binding.etContrasenya.addTextChangedListener { binding.contrasenyaInputLayout.error = null }
     }
 
     private fun validateFields(): Boolean {
-        val username = binding.etUsername.text.toString().trim()
+        val email = binding.etEmail.text.toString().trim()
         val password = binding.etContrasenya.text.toString().trim()
         var isValid = true
 
-        if (username.isEmpty()) {
-            binding.usernameInputLayout.error = "El camp d'usuari no pot estar buit"
+        if (email.isEmpty()) {
+            binding.emailInputLayout.error = "El camp d'email no pot estar buit"
             isValid = false
         }
 
