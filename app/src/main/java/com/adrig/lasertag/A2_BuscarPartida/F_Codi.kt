@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.adrig.lasertag.A3_Partida.A3_Partida
+import com.adrig.lasertag.data.RegisterJugadorRequest
 import com.adrig.lasertag.data.RetrofitClient
 import com.adrig.lasertag.databinding.FragmentCodiBinding
 import kotlinx.coroutines.launch
@@ -41,6 +42,8 @@ class F_Codi: Fragment() {
     private fun unirJugadorAPartida(codi: String) {
         val prefs = requireContext().getSharedPreferences("lasertag", Context.MODE_PRIVATE)
         val jugadorId = prefs.getString("jugador_id", null)
+        val jugadorNom = prefs.getString("jugador_nom", null)
+        val jugadorEmail = prefs.getString("jugador_email", "") ?: ""
 
         if (jugadorId == null) {
             Toast.makeText(requireContext(), "Has d'iniciar sessió primer", Toast.LENGTH_SHORT).show()
@@ -49,6 +52,15 @@ class F_Codi: Fragment() {
 
         lifecycleScope.launch {
             try {
+                val nomPerRegistrar = (jugadorNom?.takeIf { it.isNotBlank() } ?: jugadorId)
+                RetrofitClient.gameService.registrarJugador(
+                    RegisterJugadorRequest(
+                        id_jugador = jugadorId,
+                        nom = nomPerRegistrar,
+                        email = jugadorEmail,
+                    )
+                )
+
                 val response = RetrofitClient.gameService.unirPartida(
                     mapOf("id_jugador" to jugadorId, "codi" to codi)
                 )
@@ -61,7 +73,7 @@ class F_Codi: Fragment() {
                     }
 
                     val idPartidaReal = response.body()?.id_partida ?: ""
-                    prefs.edit { 
+                    prefs.edit {
                         putString("codi_sala", codi)
                         putString("id_partida", idPartidaReal)
                     }
@@ -73,7 +85,12 @@ class F_Codi: Fragment() {
                     startActivity(intent)
                     requireActivity().finish()
                 } else {
-                    Toast.makeText(requireContext(), "Codi de sala incorrecte", Toast.LENGTH_SHORT).show()
+                    val missatge = when (response.code()) {
+                        404 -> "Codi de sala incorrecte"
+                        409 -> "No et pots unir a la partida (conflicte)"
+                        else -> "No s'ha pogut unir (${response.code()})"
+                    }
+                    Toast.makeText(requireContext(), missatge, Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Error de connexió", Toast.LENGTH_SHORT).show()

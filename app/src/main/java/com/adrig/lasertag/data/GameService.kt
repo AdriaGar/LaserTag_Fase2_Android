@@ -26,6 +26,9 @@ interface GameService {
     @GET("partida/{id}/equips")
     suspend fun getEquipsPartida(@Path("id") idPartida: String): Response<List<EquipResponse>>
 
+    @GET("equip/{id}/jugadors")
+    suspend fun getJugadorsEquip(@Path("id") idEquip: String): Response<List<JugadorPartidaResponse>>
+
     @GET("partida/estadistiques")
     suspend fun getEstadistiquesPartida(@Query("id") idPartida: String): Response<ScoreboardResponse>
 }

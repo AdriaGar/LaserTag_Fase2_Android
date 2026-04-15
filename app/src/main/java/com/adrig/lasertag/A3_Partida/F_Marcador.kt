@@ -29,8 +29,7 @@ class F_Marcador : Fragment() {
 
         val prefs = requireContext().getSharedPreferences("lasertag", Context.MODE_PRIVATE)
 
-        val codiSala =
-            activity?.intent?.getStringExtra("CODI_SALA") ?: prefs.getString("codi_sala", "") ?: ""
+        val idPartida = prefs.getString("id_partida", "") ?: ""
         val jugadorId = prefs.getString("jugador_id", "") ?: ""
 
         binding.recyclerViewMarcador.layoutManager = LinearLayoutManager(context)
@@ -39,16 +38,16 @@ class F_Marcador : Fragment() {
             binding.recyclerViewMarcador.adapter = MarcadorAdapter(llista)
         }
 
-
         viewModel.estatPropi.observe(viewLifecycleOwner) { estat ->
             binding.tvKills.text = estat.kills.toString()
             binding.tvMorts.text = estat.morts.toString()
             binding.tvPunts.text = estat.punts.toString()
             binding.tvViu.text = if (estat.viu) "VIU" else "ELIMINAT"
+            binding.tvViu.setTextColor(if (estat.viu) android.graphics.Color.GREEN else android.graphics.Color.RED)
         }
 
-        if (codiSala.isNotEmpty() && jugadorId.isNotEmpty()) {
-            viewModel.startPolling(codiSala, jugadorId)
+        if (idPartida.isNotEmpty() && jugadorId.isNotEmpty()) {
+            viewModel.startPolling(idPartida, jugadorId)
         }
     }
 

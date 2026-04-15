@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.adrig.lasertag.A2_BuscarPartida.A2_BuscarPartida
 import com.adrig.lasertag.R
 import com.adrig.lasertag.data.RetrofitClient
-import com.adrig.lasertag.data.JugadorScore
 import com.adrig.lasertag.databinding.FragmentFEsperaBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,9 +34,11 @@ class F_Espera : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val prefs = requireContext().getSharedPreferences("lasertag", Context.MODE_PRIVATE)
         val codi = activity?.intent?.getStringExtra("CODI_SALA") ?: prefs.getString("codi_sala", "") ?: ""
-        
+
         binding.tvCodiSala.text = "Codi: $codi"
         binding.rvJugadorsEspera.layoutManager = LinearLayoutManager(context)
+        binding.rvEquip1.layoutManager = LinearLayoutManager(context)
+        binding.rvEquip2.layoutManager = LinearLayoutManager(context)
 
         if (codi.isNotEmpty()) {
             prefs.edit { putString("codi_sala", codi) }
@@ -68,12 +69,13 @@ class F_Espera : Fragment() {
                                 break
                             }
                             else -> {
-                                val resJugadors = RetrofitClient.gameService.getJugadorsPartida(partida?.id_partida ?: "")
-                                if (resJugadors.isSuccessful) {
-                                    val jugadors = resJugadors.body()?.map { 
-                                        JugadorScore(it.id_jugador, it.nom, it.nickname, 0, 0, 0, 0)
-                                    } ?: emptyList()
-                                    binding.rvJugadorsEspera.adapter = MarcadorAdapter(jugadors)
+                                val idPartida = partida?.id_partida ?: ""
+                                val mode = partida?.mode_joc
+
+                                if (mode == "per_equips" || mode == "captura_bandera") {
+                                    pintarEquips(idPartida)
+                                } else {
+                                    pintarJugadorsBarrejats(idPartida)
                                 }
                             }
                         }
@@ -82,6 +84,42 @@ class F_Espera : Fragment() {
                 delay(2000)
             }
         }
+    }
+
+    private suspend fun pintarJugadorsBarrejats(idPartida: String) {
+        binding.layoutEquips.visibility = View.GONE
+        binding.rvJugadorsEspera.visibility = View.VISIBLE
+
+        val resJugadors = RetrofitClient.gameService.getJugadorsPartida(idPartida)
+        if (resJugadors.isSuccessful) {
+            val jugadors = resJugadors.body().orEmpty()
+            binding.rvJugadorsEspera.adapter = EsperaJugadorsAdapter(jugadors)
+        }
+    }
+
+    private suspend fun pintarEquips(idPartida: String) {
+        binding.rvJugadorsEspera.visibility = View.GONE
+        binding.layoutEquips.visibility = View.VISIBLE
+
+        val resEquips = RetrofitClient.gameService.getEquipsPartida(idPartida)
+        if (!resEquips.isSuccessful) return
+
+        val equips = resEquips.body().orEmpty().take(2)
+        val equip1 = equips.getOrNull(0)
+        val equip2 = equips.getOrNull(1)
+
+        binding.tvEquip1.text = equip1?.nom ?: "Equip 1"
+        binding.tvEquip2.text = equip2?.nom ?: "Equip 2"
+
+        val jugadors1 = equip1?.let {
+            RetrofitClient.gameService.getJugadorsEquip(it.id_equip).body().orEmpty()
+        }.orEmpty()
+        val jugadors2 = equip2?.let {
+            RetrofitClient.gameService.getJugadorsEquip(it.id_equip).body().orEmpty()
+        }.orEmpty()
+
+        binding.rvEquip1.adapter = EsperaJugadorsAdapter(jugadors1)
+        binding.rvEquip2.adapter = EsperaJugadorsAdapter(jugadors2)
     }
 
     override fun onDestroyView() {

@@ -9,4 +9,5 @@
     <color name="bottom_nav_selected_item">#FFFFFF</color>
     <color name="fragment_bg_color">#000000</color>
     <color name="fons_fragment">#ACAE65</color>
+    <color name="equip_color">#40C4FF</color>
 </resources>

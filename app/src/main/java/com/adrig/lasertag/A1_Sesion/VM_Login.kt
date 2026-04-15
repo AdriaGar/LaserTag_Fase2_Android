@@ -24,7 +24,11 @@ class VM_Login : ViewModel() {
                     val user = response.body()?.user
                     if (user != null) {
                         val prefs = context.getSharedPreferences("lasertag", Context.MODE_PRIVATE)
-                        prefs.edit { putString("jugador_id", user.id.toString()) }
+                        prefs.edit {
+                            putString("jugador_id", user.id.toString())
+                            putString("jugador_nom", user.nom)
+                            putString("jugador_email", user.email)
+                        }
                     }
                     _loginState.value = LoginState.Success(response.body()?.message ?: "Login correcte")
                 } else {

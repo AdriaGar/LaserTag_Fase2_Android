@@ -75,13 +75,58 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/tvEquips"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"/>
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/tvEquip1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Equip 1"
+                        android:textColor="@color/equip_color"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEquip1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="8dp">
+
+                    <TextView
+                        android:id="@+id/tvEquip2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Equip 2"
+                        android:textColor="@color/equip_color"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvEquip2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
